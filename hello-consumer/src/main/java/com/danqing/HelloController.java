@@ -25,6 +25,7 @@ public class HelloController {
 
     @RequestMapping(value = "/helloEx", method = RequestMethod.GET)
     public String helloEx() {
+        System.out.println("test for loadBalancer");
         ServiceInstance instance = this.loadBalancerClient.choose("SERVICE-HELLO");
         URI helloUri = URI.create(String.format("http://%s:%s/hello", instance.getHost(), instance.getPort()));
         return new RestTemplate().getForEntity(helloUri, String.class).getBody();
