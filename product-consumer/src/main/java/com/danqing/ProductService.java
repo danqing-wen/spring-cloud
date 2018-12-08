@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient("PRODUCT-SERVICE")
+@FeignClient(value = "PRODUCT-SERVICE",fallback = ProductServiceFallBack.class)
 public interface ProductService {
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
