@@ -1,4 +1,4 @@
-package com.danqing;
+package com.danqing.product;
 
 public class Product {
     private static final long serialVersionUID = 1L;

@@ -1,6 +1,6 @@
 package com.danqing.productserver;
 
-import com.danqing.Product;
+import com.danqing.product.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.PathVariable;
