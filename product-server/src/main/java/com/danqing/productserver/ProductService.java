@@ -6,11 +6,13 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import com.danqing.product.Product;
+import com.danqing.product.ProductEvent;
 import com.danqing.product.ProductMsg;
 
 @Service
@@ -28,6 +30,7 @@ public class ProductService {
 
     /**
      * 获取商品列表
+     *
      * @return
      */
     public List<Product> findAll() {
@@ -36,6 +39,7 @@ public class ProductService {
 
     /**
      * 根据ItemCode获取
+     *
      * @param itemCode
      * @return
      */
@@ -50,6 +54,7 @@ public class ProductService {
 
     /**
      * 保存或更新商品信息
+     *
      * @param product
      * @return
      */
@@ -65,15 +70,23 @@ public class ProductService {
         }
 
         // 发送商品消息
-        this.sendMsg(ProductMsg.MA_UPDATE, product.getItemCode());
-
+        //        this.sendMsg(ProductMsg.MA_UPDATE, product.getItemCode());
+        this.fireEvent(product);
         return product;
+    }
+
+    private void fireEvent(Product product) {
+        ProductEvent productEvent =
+            new ProductEvent(product, this.getClass().getName(), "*:**", ProductEvent.ET_UPDATE, product.getItemCode());
+        RemoteApplicationEventPublisher.publishEvent(productEvent);
+
     }
 
     /**
      * 具体消息发送的实现
+     *
      * @param msgAction 消息类型
-     * @param itemCode 商品货号
+     * @param itemCode  商品货号
      */
     protected void sendMsg(String msgAction, String itemCode) {
         ProductMsg productMsg = new ProductMsg(msgAction, itemCode);
