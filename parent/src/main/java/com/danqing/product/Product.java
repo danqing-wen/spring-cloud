@@ -53,4 +53,15 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Product{");
+        sb.append("itemCode='").append(itemCode).append('\'');
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", bandName='").append(bandName).append('\'');
+        sb.append(", price=").append(price);
+        sb.append('}');
+        return sb.toString();
+    }
 }
