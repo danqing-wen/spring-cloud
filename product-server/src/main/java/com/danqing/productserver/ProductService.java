@@ -6,13 +6,11 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 import com.danqing.product.Product;
-import com.danqing.product.ProductEvent;
 import com.danqing.product.ProductMsg;
 
 @Service
@@ -77,7 +75,7 @@ public class ProductService {
 
     private void fireEvent(Product product) {
         ProductEvent productEvent =
-            new ProductEvent(product, this.getClass().getName(), "*:**", ProductEvent.ET_UPDATE, product.getItemCode());
+            new ProductEvent(product, ApplicationContextHolder.getApplicationContext().getId(), "*:**", ProductEvent.ET_UPDATE, product.getItemCode());
         RemoteApplicationEventPublisher.publishEvent(productEvent);
 
     }

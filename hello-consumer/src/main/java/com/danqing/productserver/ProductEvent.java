@@ -1,4 +1,4 @@
-package com.danqing.product;
+package com.danqing.productserver;
 
 import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 

@@ -1,12 +1,11 @@
 package com.danqing;
 
-import com.danqing.product.Product;
-import org.springframework.stereotype.Component;
-
 import java.util.Collections;
 import java.util.List;
 
-@Component
+import com.danqing.product.Product;
+
+//@Component
 public class ProductServiceFallBack implements  ProductService {
     @Override
     public List<Product> findAll() {
